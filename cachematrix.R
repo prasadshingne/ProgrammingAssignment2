@@ -1,19 +1,19 @@
 ## Put comments here that give an overall description of what your
 ## functions do
 
-## Write a short comment describing this function
+## Function creates a matrix object that can cache its inverse
 
-makeCacheMatrix <- function(x = matrix()) {
+makeCacheMatrix <- function(x = matrix()) { ## define the argument with default mode of "matrix"
               
-        inv = NULL
-        set = function(y) {
-                
+        inv <- NULL                         ## initialize inv as NULL
+        set <- function(y) {                ## define the set functuion to assign new value of matrix
+                         
                 x <<- y
-                inv <<- NULL
+                inv <<- NULL                ## if there is a new matrix, reset inv to null
         }
-        get = function() x
-        setinv = function(inverse) inv <<- inverse 
-        getinv = function() inv
+        get <- function() x                 ## define the get function 
+        setinv <- function(inverse) inv <<- inverse ## assigns value of inv in parent environment
+        getinv <- function() inv                    ## gets value of inv where called
         list(set=set, get=get, setinv=setinv, getinv=getinv)
 }
 
@@ -21,7 +21,7 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-	inv = x$getinv()
+	inv <- x$getinv()
         
         # if the inverse has already been calculated
         if (!is.null(inv)){
@@ -31,8 +31,8 @@ cacheSolve <- function(x, ...) {
         }
         
         # otherwise, calculates the inverse 
-        mat.data = x$get()
-        inv = solve(mat.data, ...)
+        mat.data <- x$get()
+        inv <- solve(mat.data, ...)
         
         # sets the value of the inverse in the cache via the setinv function.
         x$setinv(inv)
